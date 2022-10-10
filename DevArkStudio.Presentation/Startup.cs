@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace DevArkStudio
+namespace DevArkStudio.Presentation
 {
     public class Startup
     {
@@ -30,7 +30,7 @@ namespace DevArkStudio
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGet("/", async context => { await context.Response.WriteAsync("Hello World!"); });
+                endpoints.MapGet("/", async context => { await context.Response.WriteAsync("<h1>Hello World2!</h1>"); });
             });
         }
     }

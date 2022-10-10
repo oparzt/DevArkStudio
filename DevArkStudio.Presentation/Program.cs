@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace DevArkStudio
+namespace DevArkStudio.Presentation
 {
     public class Program
     {
