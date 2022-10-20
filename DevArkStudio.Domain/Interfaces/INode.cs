@@ -19,7 +19,7 @@ namespace DevArkStudio.Domain.Interfaces
     {
         NodeType NodeType { get; }
         List<INode> ChildNodes { get; }
-        INode ParentNode { get; }
+        INode ParentNode { get; set; }
         
         string NodeName { get; }
         string NodeValue { get; set; }
