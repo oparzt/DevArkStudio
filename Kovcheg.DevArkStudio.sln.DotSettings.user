@@ -1,0 +1,10 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=0de54475_002D83e5_002D4f72_002D8d04_002D11014f7d105f/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;And&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;NUnit3x::9F98B262-0013-4912-A954-B62228E8439E::.NETCoreApp,Version=v3.1::DomainModelsTests.HTMLElementTests&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+    &lt;Project Location="/Users/olegprotasov/Documents/Учеба/ПП/Kovcheg.DevArkStudio/DomainModelsTests" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DomainModelsTests&amp;gt;" /&gt;
+    &lt;Namespace&gt;DomainModelsTests&lt;/Namespace&gt;
+  &lt;/And&gt;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
