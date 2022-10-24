@@ -3,6 +3,7 @@ using NUnit.Framework;
 
 namespace DomainModelsTests
 {
+    [TestFixture]
     public class HTMLElementTests
     {
         [SetUp]
