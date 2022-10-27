@@ -19,7 +19,12 @@ namespace DevArkStudio.Domain.Models
         public string TextContent
         {
             get => string.Join(" ", ChildNodes.Select(node => node.TextContent).Where(text => text.Length > 0));
-            set => ChildNodes.Clear();
+            set
+            {
+                var text = new TextNode(value);
+                ChildNodes.Clear();
+                ChildNodes.Add(text);
+            }
         }
 
         public HashSet<string> ClassList { get; private set; } = new();
@@ -39,9 +44,10 @@ namespace DevArkStudio.Domain.Models
         public string TagName { get; private set; }
         public Dictionary<string, string> Attributes { get; }
 
-        public HTMLElement(string tagName)
+        public HTMLElement(string tagName, string nodeID = "")
         {
             TagName = tagName;
+            NodeID = nodeID;
         }
         
         public IElement CloneNode()

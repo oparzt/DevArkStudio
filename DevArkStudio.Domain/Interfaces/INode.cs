@@ -21,6 +21,7 @@ namespace DevArkStudio.Domain.Interfaces
         List<INode> ChildNodes { get; }
         INode ParentNode { get; set; }
         
+        string NodeID { get; }
         string NodeName { get; }
         string NodeValue { get; set; }
         string TextContent { get; set; }

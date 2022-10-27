@@ -8,7 +8,6 @@ namespace DevArkStudio.Domain.Interfaces
         string ClassName { get; set; }
         
         string StyleID { get; set; }
-        string NodeID { get; }
         
         string InnerHTML { get; }
         string OuterHTML { get; }

@@ -11,14 +11,14 @@ namespace DomainModelsTests
         [Test]
         public void SimpleTextCreate()
         {
-            var text = new Text();
+            var text = new TextNode();
             
             Assert.AreEqual(NodeType.TEXT_NODE,text.NodeType);
             Assert.AreEqual("#text",text.NodeName);
             Assert.AreEqual("",text.NodeValue);
             Assert.AreEqual("", text.TextContent);
             Assert.AreEqual(text.TextContent,text.NodeValue);
-            Assert.AreEqual(0, text.NodeName.Length);
+            Assert.AreEqual(0, text.ChildNodes.Count);
             Assert.AreEqual(null, text.ParentNode);
         }
 
@@ -27,7 +27,7 @@ namespace DomainModelsTests
         [TestCase("Hello World")]
         public void TextCreateWithString(string s)
         {
-            var text = new Text(s);
+            var text = new TextNode(s);
             
             Assert.AreEqual(s, text.NodeValue);
             Assert.AreEqual(s, text.TextContent);
@@ -40,7 +40,7 @@ namespace DomainModelsTests
         public void CreateElementWithText(string s)
         {
             var div = new HTMLElement("div");
-            var text = new Text(s);
+            var text = new TextNode(s);
 
             div.Append(text);
 
@@ -65,7 +65,7 @@ namespace DomainModelsTests
             foreach (var s1 in s)
             {
                 div.TextContent = s1;
-                Assert.AreEqual(s, div.TextContent);
+                Assert.AreEqual(s1, div.TextContent);
             }
         }
         
@@ -77,9 +77,12 @@ namespace DomainModelsTests
             foreach (var s1 in s)
             {
                 div.Append(new HTMLElement("a"));
+                div.Append(new HTMLElement("div"));
+                div.Append(new HTMLElement("span"));
+                div.Append(new HTMLElement("p"));
                 div.TextContent = s1;
-                Assert.AreEqual(s, div.TextContent);
-                Assert.AreEqual(0, div.ChildNodes.Count);
+                Assert.AreEqual(s1, div.TextContent);
+                Assert.AreEqual(1, div.ChildNodes.Count);
             }
         }
     }
