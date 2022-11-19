@@ -37,10 +37,10 @@ namespace DevArkStudio.Domain.Models
 
         public string StyleID { get; set; }
         public string NodeID { get; }
-        
+
         public string InnerHTML => string.Join("\n", ChildNodes.Select(node => node is not HTMLElement element ? node.TextContent : element.OuterHTML));
         public string OuterHTML => "<" + TagName + ">\n" + InnerHTML + "\n</" + TagName + ">";
-        
+
         public string TagName { get; private set; }
         public Dictionary<string, string> Attributes { get; }
 
@@ -49,7 +49,7 @@ namespace DevArkStudio.Domain.Models
             TagName = tagName;
             NodeID = nodeID;
         }
-        
+
         public IElement CloneNode()
         {
             throw new System.NotImplementedException();
@@ -77,7 +77,7 @@ namespace DevArkStudio.Domain.Models
         public bool Before(INode node)
         {
             if (ParentNode is null) return false;
-            
+
             var pos = ParentNode.ChildNodes.IndexOf(this);
             ParentNode.ChildNodes.Insert(pos, node);
             node.ParentNode?.ChildNodes.Remove(this);
@@ -111,4 +111,5 @@ namespace DevArkStudio.Domain.Models
             throw new System.NotImplementedException();
         }
     }
+
 }
