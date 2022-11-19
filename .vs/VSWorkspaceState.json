@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\DevArkStudio.Domain",
+    "\\DevArkStudio.Domain\\Interfaces",
+    "\\DevArkStudio.Domain\\Models",
+    "\\DevArkStudio.Infrastructure",
+    "\\DevArkStudio.Persistence",
+    "\\DevArkStudio.Presentation",
+    "\\DomainModelsTests"
+  ],
+  "SelectedNode": "\\DevArkStudio.Domain\\Models\\HTMLElement.cs",
+  "PreviewInSolutionExplorer": false
+}
