@@ -1,7 +1,10 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b1e06af9_002D8795_002D4302_002Dbe79_002D2bbb105d14b5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
-  &lt;And&gt;&#xD;
-    &lt;Project Location="\Users\olegprotasov\Documents\Учеба\ПП\Kovcheg.DevArkStudio\DomainModelsTests" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;DomainModelsTests&amp;gt;" /&gt;&#xD;
-    &lt;Namespace&gt;DomainModelsTests&lt;/Namespace&gt;&#xD;
-  &lt;/And&gt;&#xD;
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b1e06af9_002D8795_002D4302_002Dbe79_002D2bbb105d14b5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+  &lt;And&gt;
+    &lt;TestAncestor&gt;
+      &lt;TestId&gt;NUnit3x::3A2ED496-5E04-4CE2-A53C-E9FBEA2B5B27::.NETCoreApp,Version=v3.1::InfrastructureJSONTests.Tests&lt;/TestId&gt;
+    &lt;/TestAncestor&gt;
+    &lt;Project Location="/Users/olegprotasov/Documents/Учеба/ПП/Kovcheg.DevArkStudio/InfrastructureJSONTests" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;InfrastructureJSONTests&amp;gt;" /&gt;
+    &lt;Namespace&gt;InfrastructureJSONTests&lt;/Namespace&gt;
+  &lt;/And&gt;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
