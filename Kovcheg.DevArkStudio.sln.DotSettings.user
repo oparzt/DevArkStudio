@@ -1,10 +1,20 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b1e06af9_002D8795_002D4302_002Dbe79_002D2bbb105d14b5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/Abbreviations/=UID/@EntryIndexedValue">UID</s:String>
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/CustomBuildToolPath/@EntryValue">/usr/local/share/dotnet/sdk/7.0.100/MSBuild.dll</s:String>
+	<s:String x:Key="/Default/Environment/Hierarchy/Build/BuildTool/DotNetCliExePath/@EntryValue">/usr/local/share/dotnet/dotnet</s:String>
+	<s:Int64 x:Key="/Default/Environment/Hierarchy/Build/BuildTool/MsbuildVersion/@EntryValue">4294967294</s:Int64>
+	<s:Boolean x:Key="/Default/Environment/Hierarchy/Build/BuildTool/RecentBuildToolPaths/=_002Fusr_002Flocal_002Fshare_002Fdotnet_002Fsdk_002F7_002E0_002E100_002FMSBuild_002Edll/@EntryIndexedValue">True</s:Boolean>
+	
+	<s:Boolean x:Key="/Default/Environment/Hierarchy/Build/BuildTool/RecentBuildToolPaths/=_002Fusr_002Flocal_002Fshare_002Fdotnet_002Fx64_002Fsdk_002F7_002E0_002E100_002FMSBuild_002Edll/@EntryIndexedValue">True</s:Boolean>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=b09fcd70_002D8cb7_002D4b1c_002D9559_002Dc18e7b311624/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="Session" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;
   &lt;And&gt;
     &lt;TestAncestor&gt;
-      &lt;TestId&gt;NUnit3x::3A2ED496-5E04-4CE2-A53C-E9FBEA2B5B27::.NETCoreApp,Version=v3.1::InfrastructureJSONTests.Tests&lt;/TestId&gt;
+      &lt;TestId&gt;NUnit3x::3A2ED496-5E04-4CE2-A53C-E9FBEA2B5B27::net7.0::InfrastructureJSONTests.Tests.TestCSS&lt;/TestId&gt;
     &lt;/TestAncestor&gt;
     &lt;Project Location="/Users/olegprotasov/Documents/Учеба/ПП/Kovcheg.DevArkStudio/InfrastructureJSONTests" Presentation="&amp;lt;Tests&amp;gt;\&amp;lt;InfrastructureJSONTests&amp;gt;" /&gt;
     &lt;Namespace&gt;InfrastructureJSONTests&lt;/Namespace&gt;
   &lt;/And&gt;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+&lt;/SessionState&gt;</s:String>
+	
+	
+	</wpf:ResourceDictionary>

@@ -1,41 +1,36 @@
 using System;
 using System.Linq;
+using System.Text.Json;
 using DevArkStudio.Domain.Interfaces;
 using DevArkStudio.Domain.Models;
+using DevArkStudio.Persistence.DTOModels;
 
 namespace DevArkStudio.Infrastructure.JSON
 {
     public static class Serializer
     {
-        public static string SerializeDocument(IDocument document)
+        public static readonly JsonSerializerOptions Options = new() { WriteIndented = true, PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+        
+        public static string SerializePage(IHTMLPage htmlPage)
         {
-            var json = "{\"type\":\"document\",\"doctype\":\"" + document.DocumentType + "\",\"nodes\":[";
-            json += String.Join(',', document.AllNodes.Values.Select(node => SerializeNode(node)));
-            json += "]}";
-            
-            return Helper.FormatJson(json);
+            return JsonSerializer.Serialize(new PageDTO(htmlPage), Options);
         }
 
         public static string SerializeNode(INode node)
         {
-            var json = "{\"nodeType\":" + (int)node.NodeType + ",\"nodeId\":\"" + node.NodeID + "\",\"parentNode\":\"";
-            json += (node.ParentNode?.NodeID ?? "") + "\",\"childNodes\":[";
-            json += String.Join(',', node.ChildNodes.Select(iNode => "\"" + iNode.NodeID + "\""));
-            json += "]";
+            var json = "";
 
             switch (node)
             {
                 case HTMLElement element:
-                    json += ",\"tagName\":\"" + element.TagName + "\"";
+                    json += JsonSerializer.Serialize<NodeDTO>(new ElementDTO(element), Options);
                     break;
                 case TextNode text:
-                    json += ",\"text\":\"" + text.TextContent + "\"";
+                    json += JsonSerializer.Serialize<NodeDTO>(new TextDTO(text), Options);
                     break;
             }
             
-            json += "}";
-            
-            return Helper.FormatJson(json);
+            return json;
         }
     }
 }

@@ -1,20 +1,18 @@
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
+using DevArkStudio.Domain.Models;
 
 namespace DevArkStudio.Domain.Interfaces
 {
     public enum NodeType
     {
+        SAMPLE_NODE = 0,
         ELEMENT_NODE = 1,
-        ATTRIBUTE_NODE = 2,
-        TEXT_NODE = 3,
-        CDATA_SECTION_NODE = 4,
-        PROCESSING_INSTRUCTION_NODE = 7,
-        COMMENT_NODE = 8,
-        DOCUMENT_NODE = 9,
-        DOCUMENT_TYPE_NODE = 10,
-        DOCUMENT_FRAGMENT_NODE = 11
+        TEXT_NODE = 2
     }
     
+    [JsonDerivedType(typeof(HTMLElement), (int)Interfaces.NodeType.ELEMENT_NODE)]
+    [JsonDerivedType(typeof(TextNode), (int)Interfaces.NodeType.TEXT_NODE)]
     public interface INode
     {
         NodeType NodeType { get; }
@@ -25,5 +23,10 @@ namespace DevArkStudio.Domain.Interfaces
         string NodeName { get; }
         string NodeValue { get; set; }
         string TextContent { get; set; }
+
+        bool Append(INode node);
+        bool Prepend(INode node);
+        bool Before(INode node);
+        bool After(INode node);
     }
 }

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using System.Text;
 
 namespace DevArkStudio.Domain.Interfaces
 {
     public interface IElement : INode
     {
-        HashSet<string> ClassList { get; }
+        List<string> ClassList { get; }
         string ClassName { get; set; }
         
         string StyleID { get; set; }
@@ -17,16 +18,13 @@ namespace DevArkStudio.Domain.Interfaces
         Dictionary<string, string> Attributes { get; }
 
         IElement CloneNode();
-        bool AddClass(string className);
+        void AddClass(string className);
         bool RemoveClass(string className);
 
-        bool Append(INode node);
-        bool Prepend(INode node);
-        bool Before(INode node);
-        bool After(INode node);
+        void UpdateAttributes(Dictionary<string, string> attributes);
 
-        string GetAttribute(string name);
-        bool SetAttribute(string name, string value);
-        bool RemoveAttribute(string name);
+        public void RenderInnerHTML(StringBuilder sb, bool develop = true);
+
+        public void RenderOuterHTML(StringBuilder sb, bool develop = true);
     }
 }

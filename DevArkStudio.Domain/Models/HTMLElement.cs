@@ -1,22 +1,29 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using DevArkStudio.Domain.Interfaces;
+using HtmlAgilityPack;
 
 namespace DevArkStudio.Domain.Models
 {
-    public class HTMLElement : IElement
+    public class HTMLElement : HTMLNode, IElement
     {
-        public NodeType NodeType => NodeType.ELEMENT_NODE;
-        public List<INode> ChildNodes { get; } = new();
-        public INode ParentNode { get; set; }
-        public string NodeName => TagName;
-        public string NodeValue
+        private static readonly HashSet<string> VoidElms = new()
+        {
+            "area", "base", "br", "col", "embed", "hr", "img",
+            "input", "link", "meta", "param", "source", "track", "wbr"
+        };
+        
+        public new NodeType NodeType => NodeType.ELEMENT_NODE;
+
+        public new string NodeName => TagName;
+        public new string NodeValue
         {
             get => null;
             set {}
         }
-
-        public string TextContent
+        
+        public new string TextContent
         {
             get => string.Join(" ", ChildNodes.Select(node => node.TextContent).Where(text => text.Length > 0));
             set
@@ -27,22 +34,22 @@ namespace DevArkStudio.Domain.Models
             }
         }
 
-        public HashSet<string> ClassList { get; private set; } = new();
+        public List<string> ClassList { get; set; } = new();
 
         public string ClassName
         {
             get => string.Join(" ", ClassList);
-            set => ClassList = new HashSet<string>(value.Split(' '));
+            set => ClassList = value.Split(' ').ToList();
         }
 
-        public string StyleID { get; set; }
-        public string NodeID { get; }
+        public string StyleID { get; set; } = "";
 
         public string InnerHTML => string.Join("\n", ChildNodes.Select(node => node is not HTMLElement element ? node.TextContent : element.OuterHTML));
         public string OuterHTML => "<" + TagName + ">\n" + InnerHTML + "\n</" + TagName + ">";
 
         public string TagName { get; private set; }
-        public Dictionary<string, string> Attributes { get; }
+
+        public Dictionary<string, string> Attributes { get; init; } = new();
 
         public HTMLElement(string tagName, string nodeID = "")
         {
@@ -55,60 +62,84 @@ namespace DevArkStudio.Domain.Models
             throw new System.NotImplementedException();
         }
 
-        public bool AddClass(string className) => ClassList.Add(className);
+        public void AddClass(string className) => ClassList.Add(className);
         public bool RemoveClass(string className) => ClassList.Remove(className);
 
-        public bool Append(INode node)
+        
+
+        public void UpdateAttributes(Dictionary<string, string> attributes)
         {
-            ChildNodes.Add(node);
-            node.ParentNode?.ChildNodes.Remove(this);
-            node.ParentNode = this;
-            return true;
+            Attributes.Clear();
+            foreach (var attribute in attributes) Attributes[attribute.Key] = attribute.Value;
         }
 
-        public bool Prepend(INode node)
+
+        public void RenderInnerHTML(StringBuilder sb, bool develop = true)
         {
-            ChildNodes.Insert(0, node);
-            node.ParentNode?.ChildNodes.Remove(this);
-            node.ParentNode = this;
-            return true;
+            foreach (var node in ChildNodes)
+            {
+                if (node is not HTMLElement element)
+                {
+                    sb.Append(node.TextContent);
+                }
+                else
+                {
+                    element.RenderOuterHTML(sb, develop);
+                }
+            }
         }
-
-        public bool Before(INode node)
+        
+        public void RenderOuterHTML(StringBuilder sb, bool develop = true)
         {
-            if (ParentNode is null) return false;
+            sb.Append("<");
+            sb.Append(TagName);
+            foreach (var pair in Attributes)
+            {
+                sb.Append(" ");
+                sb.Append(pair.Key);
+                sb.Append("=\"");
+                if (develop && 
+                    (pair.Key == "href" || pair.Key == "src") &&
+                    (pair.Value.StartsWith(".") || pair.Value.StartsWith("/") || pair.Value.Length == 0))
+                    sb.Append("/Develop/");
+                sb.Append(pair.Value);
+                sb.Append("\"");
+            }
 
-            var pos = ParentNode.ChildNodes.IndexOf(this);
-            ParentNode.ChildNodes.Insert(pos, node);
-            node.ParentNode?.ChildNodes.Remove(this);
-            node.ParentNode = ParentNode;
-            return true;
-        }
+            if (StyleID.Length > 0)
+            {
+                sb.Append(" ");
+                sb.Append("id=\"");
+                sb.Append(StyleID);
+                sb.Append("\"");
+            }
 
-        public bool After(INode node)
-        {
-            if (ParentNode is null) return false;
-
-            var pos = ParentNode.ChildNodes.IndexOf(this);
-            ParentNode.ChildNodes.Insert(pos + 1, node);
-            node.ParentNode?.ChildNodes.Remove(this);
-            node.ParentNode = ParentNode;
-            return true;
-        }
-
-        public string GetAttribute(string name)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool SetAttribute(string name, string value)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public bool RemoveAttribute(string name)
-        {
-            throw new System.NotImplementedException();
+            if (ClassList.Count > 0)
+            {
+                sb.Append(" ");
+                sb.Append("class=\"");
+                foreach (var classToken in ClassList)
+                {
+                    sb.Append(classToken);
+                    sb.Append(" ");
+                }
+                sb.Append("\"");
+            }
+            
+            sb.Append(">");
+            RenderInnerHTML(sb, develop);
+            
+            
+            if (VoidElms.Contains(TagName))
+            {
+                sb.Append(">");
+            }
+            else
+            {
+                sb.Append("</");
+                sb.Append(TagName);
+                sb.Append(">");
+            }
         }
     }
 
