@@ -47,6 +47,13 @@ public record UpdateTextContentRequest : NodeRequest
     public string TextContent { get; init; }
 }
 
+public record UpdateTagRequest : NodeRequest
+{
+    [Required]
+    [JsonPropertyName("tagName")]
+    public string TagName { get; init; }
+}
+
 public record TransferNodeRequest : NodeRequest {
     [Required]
     [JsonPropertyName("targetNodeID")]
@@ -118,6 +125,12 @@ public class PageController : ControllerBase
     public IActionResult UpdateTextContent([FromBody] UpdateTextContentRequest request, [FromServices] PageService pageService)
     {
         return new JsonResult(pageService.UpdateTextContent(request.PageName, request.NodeID, request.TextContent));
+    }
+    
+    [HttpPost]
+    public IActionResult UpdateTagName([FromBody] UpdateTagRequest request, [FromServices] PageService pageService)
+    {
+        return new JsonResult(pageService.UpdateTagName(request.PageName, request.NodeID, request.TagName));
     }
     
     [HttpPost]

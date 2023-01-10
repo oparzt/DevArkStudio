@@ -47,7 +47,7 @@ namespace DevArkStudio.Domain.Models
         public string InnerHTML => string.Join("\n", ChildNodes.Select(node => node is not HTMLElement element ? node.TextContent : element.OuterHTML));
         public string OuterHTML => "<" + TagName + ">\n" + InnerHTML + "\n</" + TagName + ">";
 
-        public string TagName { get; private set; }
+        public string TagName { get; set; }
 
         public Dictionary<string, string> Attributes { get; init; } = new();
 

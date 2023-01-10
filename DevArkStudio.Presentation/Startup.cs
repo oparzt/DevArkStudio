@@ -28,7 +28,7 @@ namespace DevArkStudio.Presentation
                 options.AddDefaultPolicy(
                     policy =>
                     {
-                        policy.WithOrigins("*")
+                        policy.AllowAnyOrigin()
                             .AllowAnyHeader()
                             .AllowAnyMethod();
                     });
@@ -36,13 +36,16 @@ namespace DevArkStudio.Presentation
             
             services.AddControllers();
             services.AddEndpointsApiExplorer();
-            
+
+            services.AddSingleton<FontFileManagerService>();
             services.AddSingleton<ProjectLoaderService>();
             services.AddSingleton<ProjectDTOService>();
 
             services.AddSingleton<ProjectService>();
             services.AddSingleton<PageService>();
-            
+            services.AddSingleton<StyleSheetService>();
+            services.AddSingleton<FontService>();
+
             services.AddSwaggerGen(c => { //<-- NOTE 'Add' instead of 'Configure'
                 c.SwaggerDoc("v3", new OpenApiInfo {
                     Title = "GTrackAPI",

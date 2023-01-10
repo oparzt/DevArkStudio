@@ -7,19 +7,21 @@ using ExCSS;
 
 namespace DevArkStudio.Domain.Models;
 
+public enum StyleManipulation
+{
+    DocumentStart = 0,
+    AfterComponent = 1
+}
+
 public class StyleSheet
 {
-    public string StyleSheetPath { get; set; }
+    public string StyleSheetPath { get; init; } = "";
     
-    public List<StyleSheet> InnerStyleSheets { get; set; } = new();
+    // public List<StyleSheet> InnerStyleSheets { get; set; } = new();
     public List<StyleComponent> StyleComponents { get; set; } = new();
     public Dictionary<string, StyleComponent> StyleComponentsDict { get; set; } = new();
 
-
-    public StyleSheet()
-    {
-        
-    }
+    public StyleSheet() {}
 
     public StyleSheet(FileInfo fileInfo)
     {
@@ -30,17 +32,18 @@ public class StyleSheet
         {
             var styleComponent = new StyleComponent()
             {
+                StyleID = GetUIDForStyleComponent(),
                 Selector = styleRule.SelectorText,
-                Styles = styleRule.Style.ToDictionary(rule => rule.Original, rule => rule.Value)
+                Styles = styleRule.Style.ToDictionary(rule => rule.Name, rule => rule.Value)
             };
             StyleComponents.Add(styleComponent);
-            StyleComponentsDict[styleRule.SelectorText] = styleComponent;
+            StyleComponentsDict[styleComponent.StyleID] = styleComponent;
         }
     }
 
     private string GetUIDForStyleComponent()
     {
-        var uid = "";
+        string uid;
         do { uid = Guid.NewGuid().ToString();} while (StyleComponentsDict.ContainsKey(uid));
         return uid;
     }
@@ -54,8 +57,8 @@ public class StyleSheet
 
     public void RenderStyleSheet(StringBuilder sb, bool develop)
     {
-        foreach (var styleSheet in InnerStyleSheets)
-            styleSheet.RenderStyleSheet(sb, develop);
+        // foreach (var styleSheet in InnerStyleSheets)
+        //     styleSheet.RenderStyleSheet(sb, develop);
 
         foreach (var styleComponent in StyleComponents)
             styleComponent.RenderStyleComponent(sb, develop);
@@ -64,8 +67,34 @@ public class StyleSheet
     public void RenderStyleSheetConnect(StringBuilder sb, bool develop)
     {
         sb.Append("<link rel=\"stylesheet\" href=\"");
-        sb.Append(develop ? "/Develop/" : "");
+        sb.Append(develop ? "/Develop/" : "/");
         sb.Append(StyleSheetPath);
         sb.Append("\">");
+    }
+
+    public (bool, string?) CreateStyleComponent(string rootStyleID, StyleManipulation styleManipulation)
+    {
+        var styleComponent =  new StyleComponent
+        {
+            StyleID = GetUIDForStyleComponent(),
+            Selector = "",
+            Styles = new Dictionary<string, string>()
+        };
+        
+        switch (styleManipulation)
+        {
+            case StyleManipulation.DocumentStart:
+                StyleComponents.Insert(0, styleComponent);
+                break;
+            case StyleManipulation.AfterComponent 
+                 when StyleComponentsDict.ContainsKey(rootStyleID):
+                StyleComponents.Insert(StyleComponents.FindIndex(component => component.StyleID == rootStyleID), styleComponent);
+                break;
+            default:
+                return (false, null);
+        }
+
+        StyleComponentsDict[styleComponent.StyleID] = styleComponent;
+        return (true, styleComponent.StyleID);
     }
 }

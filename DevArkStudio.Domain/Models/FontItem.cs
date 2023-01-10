@@ -28,7 +28,7 @@ public class FontItem
     public void RenderFontConnection(StringBuilder sb, bool develop)
     {
         sb.Append(" @font-face { ");
-        sb.Append($" font-family: {FontFamily}; ");
+        sb.Append($" font-family: \"{FontFamily}\"; ");
         sb.Append($" font-style: {FontStyle}; ");
         sb.Append($" font-weight: {FontWeight}; ");
         if (EotFontPath.Length > 0) sb.Append($" src: url('{(develop ?  "/Develop/" : "") + EotFontPath}'); ");

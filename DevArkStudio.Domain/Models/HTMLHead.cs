@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 
 namespace DevArkStudio.Domain.Models;
@@ -16,13 +17,13 @@ public class HTMLHead
         sb.Append("<title>");
         sb.Append(Title);
         sb.Append("</title>");
-        if (HTMLPage is not null)
-            foreach (var styleSheet in HTMLPage.StyleSheets)
-                styleSheet.RenderStyleSheetConnect(sb, develop);
+        if (HTMLPage?.Project is not null)
+            foreach (var styleSheetPath in HTMLPage.StyleSheets)
+                HTMLPage.Project.StyleSheets[styleSheetPath].RenderStyleSheetConnect(sb, develop);
         sb.Append("<style>");
-        if (HTMLPage is not null)
-            foreach (var fontItem in HTMLPage.Fonts)
-                fontItem.RenderFontConnection(sb, develop);
+        if (HTMLPage?.Project is not null)
+            foreach (var font in HTMLPage.Fonts)
+                HTMLPage.Project.FontItems[font].RenderFontConnection(sb, develop);
         sb.Append("</style>");
         sb.Append("</head>");
     }

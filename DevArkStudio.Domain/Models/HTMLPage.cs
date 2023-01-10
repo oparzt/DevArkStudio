@@ -26,9 +26,10 @@ namespace DevArkStudio.Domain.Models
 
         public Dictionary<string, INode> AllNodes { get; init; } = new();
 
-        public List<StyleSheet> StyleSheets { get; init; } = new();
-        public List<FontItem> Fonts { get; init; } = new ();
-        
+        public List<string> StyleSheets { get; init; } = new();
+        public List<string> Fonts { get; init; } = new ();
+        public Project? Project { get; init; }
+
         public HTMLPage(HTMLHead htmlHead, IElement bodyElement, string pageName = "")
         {
             PageName = pageName;
@@ -55,6 +56,7 @@ namespace DevArkStudio.Domain.Models
 
         public HTMLPage(FileSystemInfo htmlFile, Project project, string pageName = "")
         {
+            Project = project;
             PageName = pageName;
             var doc = new HtmlDocument();
             doc.Load(htmlFile.FullName);
@@ -65,18 +67,29 @@ namespace DevArkStudio.Domain.Models
                 HTMLPage = this
             };
 
-            LoadFontfaceFromStyles(string.Join(' ', doc.DocumentNode
+            var cssParser = new StylesheetParser();
+            var stylesheet = cssParser.Parse(string.Join(' ', doc.DocumentNode
                 .SelectNodes("//head/style")
                 ?.Select(styleNode => styleNode.InnerHtml).ToArray() ?? new string[]{}));
+            
+            Fonts = stylesheet.FontfaceSetRules
+                .Select(fontface => fontface.Family.Trim('"') + ";" + fontface.Style + ";" + fontface.Weight)
+                .Where(fontface => project.FontItems.ContainsKey(fontface))
+                .ToList();
             
             StyleSheets = doc.DocumentNode
                 .SelectNodes("//head/link")
                 ?.Where(node => node.Attributes.Contains("rel") 
                                && node.Attributes.Contains("href")
-                               && node.Attributes["rel"].Value == "stylesheet"
-                               && project.StyleSheets.ContainsKey(node.Attributes["href"].Value))
-                .Select(node => project.StyleSheets[node.Attributes["href"].Value])
-                .ToList() ?? new List<StyleSheet>();
+                               && node.Attributes["rel"].Value == "stylesheet")
+                .Select(node =>node.Attributes["href"].Value)
+                .Select(href =>
+                {
+                    if (href.Length > 0 && href[0] == '/') return href.Remove(0, 1);
+                    return href;
+                })
+                .Where(href => project.StyleSheets.ContainsKey(href))
+                .ToList() ?? new List<string>();
 
             var bodyElmFromText = doc.DocumentNode.SelectSingleNode("//body");
             var elmsToAdd = new Queue<(INode, HtmlNode)>();
@@ -93,8 +106,9 @@ namespace DevArkStudio.Domain.Models
                     switch (node.NodeType)
                     { 
                         case HtmlNodeType.Element:
-                            var attributes = node.Attributes
-                                .ToDictionary(attribute => attribute.Name, attribute => attribute.Value);
+                            var attributes = new Dictionary<string, string>();
+                            foreach (var attr in node.Attributes) attributes[attr.Name] = attr.Value;
+                            
                             newNode = new HTMLElement(node.OriginalName, GetUIDForNode())
                             {
                                 Attributes = attributes, 
@@ -179,45 +193,6 @@ namespace DevArkStudio.Domain.Models
             string uid;
             do { uid = Guid.NewGuid().ToString(); } while (AllNodes.ContainsKey(uid));
             return uid;
-        }
-
-        private void LoadFontfaceFromStyles(string styles)
-        {
-            if (styles.Length == 0) return;
-            
-            var cssParser = new StylesheetParser();
-            var stylesheet = cssParser.Parse(styles);
-
-            foreach (var fontface in stylesheet.FontfaceSetRules)
-            {
-                var sources = fontface.Source
-                    .Split(',', ' ')
-                    .Where(src => src.Contains("url"))
-                    .Select(src => src
-                        .Replace("url('", string.Empty)
-                        .Replace("url(\"", string.Empty)
-                        .Replace("?#iefix", string.Empty)
-                        .Replace("')", string.Empty)
-                        .Replace("\")", string.Empty))
-                    .Where(Path.HasExtension)
-                    .Select(src => new KeyValuePair<string, string>(Path.GetExtension(src), src))
-                    .ToDictionary(src => src.Key, src => src.Value);
-                
-                var fontItem = new FontItem()
-                {
-                    FontFamily = fontface.Family,
-                    FontStyle = fontface.Style,
-                    FontWeight = fontface.Weight,
-                    
-                    EotFontPath = sources.ContainsKey(".eot") ? sources[".eot"] : "",
-                    Woff2FontPath = sources.ContainsKey(".woff2") ? sources[".woff2"] : "",
-                    WoffFontPath = sources.ContainsKey(".woff") ? sources[".woff"] : "",
-                    TTFFontPath = sources.ContainsKey(".ttf") ? sources[".ttf"] : "",
-                    SVGFontPath = sources.ContainsKey(".svg") ? sources[".svg"] : ""
-                };
-                
-                Fonts.Add(fontItem);
-            }
         }
 
         private static bool MakeNodeManipulation(INode rootNode, INode targetNode, NodeManipulation nodeManipulation)

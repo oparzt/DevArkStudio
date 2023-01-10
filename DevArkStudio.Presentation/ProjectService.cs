@@ -66,10 +66,11 @@ public class ProjectService
 
     public RenderAnswer RenderFile(string path)
     {
+        // Console.WriteLine(path);
         try
         {
             if (Project is null) throw new Exception("Проект не загружен");
-            var fileGetRes = _projectLoaderService.GetFileFromProject(path);
+            var fileGetRes = _projectLoaderService.GetFileFromProject(Project, path);
             
             return new FileRenderAnswer { Ok = fileGetRes.Item1, Answer = fileGetRes.Item2};
         }
@@ -81,7 +82,8 @@ public class ProjectService
 
     public (bool, byte[]?) ExportProject()
     {
-        return !SaveProject() ? (false, null) : _projectLoaderService.GetAllProject();
+        if (Project is null) return (false, null);
+        return !SaveProject() ? (false, null) : _projectLoaderService.GetAllProject(Project);
     }
     
     public (bool, string?) CreateProject(string name)
@@ -99,11 +101,9 @@ public class ProjectService
         return result;
     }
 
-    public bool UnloadProject()
+    public void UnloadProject()
     {
         Project = null;
-        _projectLoaderService.UnloadProject();
-        return true;
     }
 
     public bool SaveProject() => Project is not null && _projectLoaderService.SaveProject(Project);

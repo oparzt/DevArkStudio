@@ -10,6 +10,7 @@ public class Project
 
     public Dictionary<string, HTMLPage> Pages { get; init; } = new();
     public Dictionary<string, StyleSheet> StyleSheets { get; init; } = new();
+    public Dictionary<string, FontItem> FontItems { get; init; } = new();
 
     public Project(string name)
     {

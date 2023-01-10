@@ -24,6 +24,7 @@
 
     <ItemGroup>
       <_ContentIncludedByDefault Remove="projects\hah\a.json" />
+      <_ContentIncludedByDefault Remove="projects\test2\fonts\bebas%3bnormal%3b400\conf.json" />
     </ItemGroup>
 
 </Project>

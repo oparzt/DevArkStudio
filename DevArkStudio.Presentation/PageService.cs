@@ -120,6 +120,24 @@ public class PageService
             NodeDTO = _projectDTOService.BuildNodeDTO(_projectService.Project.Pages[pageName].AllNodes[nodeID])
         };
     }
+    
+    public NodeDTOAnswer UpdateTagName(string pageName, string nodeID, string tagName)
+    {
+        if (_projectService.Project is null
+            || !_projectService.Project.Pages.ContainsKey(pageName)
+            || !_projectService.Project.Pages[pageName].AllNodes.ContainsKey(nodeID)
+            || _projectService.Project.Pages[pageName].AllNodes[nodeID] is not IElement)
+            return new NodeDTOAnswer { Ok = false, NodeDTO = null };
+
+        var elm = (_projectService.Project.Pages[pageName].AllNodes[nodeID] as IElement);
+        if (elm != null) elm.TagName = tagName;
+
+        return new NodeDTOAnswer
+        {
+            Ok = true,
+            NodeDTO = _projectDTOService.BuildNodeDTO(_projectService.Project.Pages[pageName].AllNodes[nodeID])
+        };
+    }
 
     public TreeDTOAnswer DeleteNode(string pageName, string nodeID)
     {
@@ -176,4 +194,6 @@ public class PageService
             }
             : new NodeWithTreeDTOAnswer {Ok = false, TreeDTO = null, NodeDTO = null};
     }
+
+    
 }

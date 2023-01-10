@@ -1,0 +1,52 @@
+<svg width="16" height="21" viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_662_261)">
+<path d="M0.700195 0.349991H11.2002" stroke="white" stroke-width="0.7" stroke-linejoin="bevel"/>
+<g clip-path="url(#clip1_662_261)">
+<g clip-path="url(#clip2_662_261)">
+<line x1="15.4004" y1="10.85" x2="11.2004" y2="10.85" stroke="white" stroke-width="0.7"/>
+<line x1="11.5502" y1="11.2" x2="11.5502" y2="15.4" stroke="white" stroke-width="0.7"/>
+<line x1="11.2002" y1="20.65" x2="15.4002" y2="20.65" stroke="white" stroke-width="0.7"/>
+<line x1="11.5502" y1="18.9" x2="11.5502" y2="20.3" stroke="white" stroke-width="0.7"/>
+<line x1="11.2002" y1="15.75" x2="15.4002" y2="15.75" stroke="white" stroke-width="0.7"/>
+<line x1="15.0502" y1="16.1" x2="15.0502" y2="20.3" stroke="white" stroke-width="0.7"/>
+<line x1="15.0502" y1="11.2" x2="15.0502" y2="12.6" stroke="white" stroke-width="0.7"/>
+</g>
+<g clip-path="url(#clip3_662_261)">
+<line x1="9.7998" y1="10.85" x2="5.5998" y2="10.85" stroke="white" stroke-width="0.7"/>
+<line x1="5.94961" y1="11.2" x2="5.94961" y2="15.4" stroke="white" stroke-width="0.7"/>
+<line x1="5.59961" y1="20.65" x2="9.79961" y2="20.65" stroke="white" stroke-width="0.7"/>
+<line x1="5.94961" y1="18.9" x2="5.94961" y2="20.3" stroke="white" stroke-width="0.7"/>
+<line x1="5.59961" y1="15.75" x2="9.79961" y2="15.75" stroke="white" stroke-width="0.7"/>
+<line x1="9.44961" y1="16.1" x2="9.44961" y2="20.3" stroke="white" stroke-width="0.7"/>
+<line x1="9.44961" y1="11.2" x2="9.44961" y2="12.6" stroke="white" stroke-width="0.7"/>
+</g>
+<g clip-path="url(#clip4_662_261)">
+<line x1="0.35" y1="11.2" x2="0.35" y2="20.3" stroke="white" stroke-width="0.7"/>
+<line y1="10.85" x2="4.2" y2="10.85" stroke="white" stroke-width="0.7"/>
+<line y1="20.65" x2="4.2" y2="20.65" stroke="white" stroke-width="0.7"/>
+<line x1="3.85" y1="18.9" x2="3.85" y2="20.3" stroke="white" stroke-width="0.7"/>
+<line x1="3.85" y1="11.2" x2="3.85" y2="12.6" stroke="white" stroke-width="0.7"/>
+</g>
+</g>
+<path d="M14.5552 3.85H11.5502V0.844975L14.5552 3.85Z" stroke="white" stroke-width="0.7"/>
+<line x1="0.350195" y1="9.8" x2="0.350195" y2="2.86102e-06" stroke="white" stroke-width="0.7"/>
+<path d="M15.0498 9.8V4.2" stroke="white" stroke-width="0.7" stroke-linejoin="bevel"/>
+</g>
+<defs>
+<clipPath id="clip0_662_261">
+<rect width="15.4" height="21" fill="white"/>
+</clipPath>
+<clipPath id="clip1_662_261">
+<rect width="15.4" height="10.5" fill="white" transform="translate(0 10.5)"/>
+</clipPath>
+<clipPath id="clip2_662_261">
+<rect width="4.2" height="10.5" fill="white" transform="translate(11.2002 10.5)"/>
+</clipPath>
+<clipPath id="clip3_662_261">
+<rect width="4.2" height="10.5" fill="white" transform="translate(5.59961 10.5)"/>
+</clipPath>
+<clipPath id="clip4_662_261">
+<rect width="4.2" height="10.5" fill="white" transform="translate(0 10.5)"/>
+</clipPath>
+</defs>
+</svg>

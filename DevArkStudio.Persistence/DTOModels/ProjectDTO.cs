@@ -11,6 +11,7 @@ public class ProjectDTO
     
     public string[] PagePaths { get; init; }
     public string[] StyleSheetPaths { get; init; }
+    public string[] Fonts { get; init; }
     
     public ProjectDTO() {}
 
@@ -18,6 +19,7 @@ public class ProjectDTO
     {
         Name = projectName;
         PagePaths = project.Pages.Keys.ToArray();
+        Fonts = project.FontItems.Keys.ToArray();
         StyleSheetPaths = project.StyleSheets.Keys.ToArray();
     }
 }

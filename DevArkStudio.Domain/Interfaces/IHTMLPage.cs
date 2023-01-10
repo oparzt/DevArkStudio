@@ -11,6 +11,6 @@ namespace DevArkStudio.Domain.Interfaces
         IElement BodyElement { get; }
         Dictionary<string, INode> AllNodes { get; }
         
-        List<FontItem> Fonts { get; }
+        List<string> Fonts { get; }
     }
 }

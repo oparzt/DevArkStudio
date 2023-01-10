@@ -13,8 +13,8 @@ namespace DevArkStudio.Domain.Interfaces
         string InnerHTML { get; }
         string OuterHTML { get; }
         
-        string TagName { get; }
-        
+        string TagName { get; set; }
+
         Dictionary<string, string> Attributes { get; }
 
         IElement CloneNode();
